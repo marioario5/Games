@@ -59,7 +59,7 @@ Cristal.prototype.move= function(){
 };
 
 Cristal.prototype.isColliding=function(){
-    if(this.x===yoda.x & this.y===yoda.y){
+    if(this.x>yoda.x &&this.x<yoda.x+50 &&this.y===yoda.y){
         println("hi");    
     }    
 };
