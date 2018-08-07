@@ -1,30 +1,6 @@
 //start
 var colors=[color(0, 255, 251),color(17, 255, 0),color(251, 255, 0),color(157, 0, 255)];
-var cristalNumber=3; //Change for number of cristals
-
-
-
-//cristal class
-var Cristal=function(){
-    this.x=random(30,370);
-    this.y=30;
-    this.color=colors[round(random(0,3))];
-};
-//draw the cristal
-Cristal.prototype.draw=function(){
-    fill(this.color);
-    rect(this.x,this.y,8,19);
-    triangle(this.x,this.y,this.x+8,this.y,this.x+3,this.y-18);
-    triangle(this.x+1,this.y+21,this.x+8,this.y+21,this.x+3,this.y+43);
-};
-Cristal.prototype.move= function(){
-    this.y+=3;    
-};
-Cristal.prototype.isColliding=function(){
-    if(this.x===yoda.x && this.y===yoda.y){
-        println("hi");    
-    }    
-};
+var cristalNumber=1; //Change for number of cristals
 //to make the yoda class
 var Yoda = function(){
     this.x=200;
@@ -61,6 +37,33 @@ Yoda.prototype.moveLeft=function(){
     this.x-=3;
 };
 var yoda = new Yoda();//make a new yoda
+
+
+//cristal class
+var Cristal=function(){
+    this.x=random(30,370);
+    this.y=30;
+    this.color=colors[round(random(0,3))];
+};
+
+//draw the cristal
+Cristal.prototype.draw=function(){
+    fill(this.color);
+    rect(this.x,this.y,8,19);
+    triangle(this.x,this.y,this.x+8,this.y,this.x+3,this.y-18);
+    triangle(this.x+1,this.y+21,this.x+8,this.y+21,this.x+3,this.y+43);
+};
+
+Cristal.prototype.move= function(){
+    this.y+=3;    
+};
+
+Cristal.prototype.isColliding=function(){
+    if(this.x===yoda.x & this.y===yoda.y){
+        println("hi");    
+    }    
+};
+
 //Note to self: for (start; how long; change)
 var Cristals = [];//array
 //Make them
@@ -75,7 +78,7 @@ var draw = function() {
     for(var y=0;y<cristalNumber;y+=1){
         Cristals[y].draw(); 
         Cristals[y].move();
-        Cristals[y].IsColliding();
+        Cristals[y].isColliding();
     }
     yoda.draw();
     //make him move
