@@ -60,7 +60,7 @@ Cristal.prototype.move= function(){
 
 Cristal.prototype.isColliding=function(){
     if(this.x>yoda.x &&this.x<yoda.x+50 &&this.y===yoda.y){
-        println("hi");    
+        println("hi Lena");    
     }    
 };
 
@@ -81,6 +81,9 @@ var draw = function() {
         Cristals[y].isColliding();
     }
     yoda.draw();
+    fill(255, 0, 0);
+    textSize(16);
+    text(cristalNumber +" cristal falling",10,20);
     //make him move
     if (keyIsPressed && keyCode === RIGHT) {
         yoda.moveRight();
