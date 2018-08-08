@@ -1,6 +1,7 @@
 //start
 var colors=[color(0, 255, 251),color(17, 255, 0),color(251, 255, 0),color(157, 0, 255)];
 var cristalNumber=1; //Change for number of cristals
+var Cristals = [];//array
 //to make the yoda class
 var Yoda = function(){
     this.x=200;
@@ -58,14 +59,13 @@ Cristal.prototype.move= function(){
     this.y+=3;    
 };
 
-Cristal.prototype.isColliding=function(){
+Cristal.prototype.isColliding=function(number){
     if(this.x>yoda.x &&this.x<yoda.x+50 &&this.y===yoda.y){
-        println("hi Lena");    
+        Cristals.splice(number);    
     }    
 };
 
 //Note to self: for (start; how long; change)
-var Cristals = [];//array
 //Make them
 for (var num = 0; num < cristalNumber; num += 1) {
     var cristal = new Cristal();
@@ -78,7 +78,7 @@ var draw = function() {
     for(var y=0;y<cristalNumber;y+=1){
         Cristals[y].draw(); 
         Cristals[y].move();
-        Cristals[y].isColliding();
+        Cristals[y].isColliding(y);
     }
     yoda.draw();
     fill(255, 0, 0);
