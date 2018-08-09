@@ -1,3 +1,6 @@
+/*
+Hi! I will give you instructions for how to play this game. First, you click restart and then IMPOTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. Coming soon: if you collect the red cristals, I have a darth function that will make yoda DARTH YODA!
+*/
 //start
 var colors=[color(0, 255, 251),color(17, 255, 0),color(251, 255, 0),color(157, 0, 255),color(255, 0, 0)];
 var cristalNumber=2; //Change for number of cristals
@@ -107,7 +110,7 @@ var draw = function() {
         Cristals[y].move();
         Cristals[y].isColliding(y);
     }
-    yoda.draw(true);
+    yoda.draw();
     fill(255, 0, 0);
     //make him move
     if (keyIsPressed && keyCode === RIGHT) {
@@ -117,5 +120,3 @@ var draw = function() {
         yoda.moveLeft();
     }
 };
-    
-
