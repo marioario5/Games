@@ -10,15 +10,15 @@ var Lightsaber= function(x,lightsabercolor,lightsaberglow){
 
 Lightsaber.prototype.draw= function() {
     noStroke();
-    fill(this.lightsaberglow);
-    rect(this.x-2,this.y-22,10,this.height+23);//glow
+    //fill(this.lightsaberglow);
+    //rect(this.x-2,this.y-22,10,this.height+23);//glow
     fill(0, 0, 0);
     rect(this.x,this.y,5,14);//handle
     fill(this.lightsabercolor);
-    rect(this.x,this.y-17,5,this.height+12); //saber
+    rect(this.x,this.y+0,5,this.height+-23); //saber
 };
 Lightsaber.prototype.grow=function(){
-    
+    this.height+=-5;    
 };
 
 var saber = new Array(2);
@@ -29,4 +29,6 @@ var blueLightsaber= new Lightsaber(54,color(17, 206, 235),color(67, 226, 247));
 
 blueLightsaber.draw();
 redLightsaber.draw();
+
+
 
