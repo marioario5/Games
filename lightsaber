@@ -30,3 +30,4 @@ var blueLightsaber= new Lightsaber(54,color(17, 206, 235),color(67, 226, 247));
 blueLightsaber.draw();
 redLightsaber.draw();
 
+
