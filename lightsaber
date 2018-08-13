@@ -1,10 +1,18 @@
+
+
 background(57, 184, 204);
-var lightColors=[color(255, 0, 0),color(17, 206, 235)];
+var RGBcolors=[];
+RGBcolors.yellow =color(251, 255, 0);
+RGBcolors.green =color(17, 255, 0);
+RGBcolors.blue =color(17, 206, 235);
+RGBcolors.purple =color(157, 0, 255);
+RGBcolors.red =color(255, 0, 0);
+var lightColors=[RGBcolors.red,RGBcolors.blue];
 var glowColors=[color(245, 120, 120),color(67, 226, 247)];
 
 var Lightsaber= function(x,lightsabercolor,lightsaberglow){
     this.x=x;
-    this.y=60;
+    this.y=378;
     this.lightsabercolor=lightsabercolor;
     this.lightsaberglow=lightsaberglow;
     this.height=6;
@@ -28,11 +36,11 @@ saber.red=new Lightsaber(27,lightColors[0],glowColors[0]);
 saber.blue=new Lightsaber(54,lightColors[1],glowColors[1]);
 
 var ppp = "blue";
-var pp = "red";
-
-saber[pp].draw();
+var pp = "red";         
 
 var draw = function() {
-    saber[ppp].grow();
     saber[ppp].draw();
+    saber[ppp].grow();
+    saber[pp].draw();
+    saber[pp].grow();
 };
