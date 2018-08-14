@@ -2,7 +2,13 @@
 Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. Coming soon: if you collect the red cristals, I have(not will have) a darth function that will make yoda DARTH YODA!
 */
 //start
-var colors=[color(0, 255, 251),color(17, 255, 0),color(251, 255, 0),color(157, 0, 255),color(255, 0, 0)];
+var RGBcolors=[];
+RGBcolors.yellow =color(251, 255, 0);
+RGBcolors.green =color(17, 255, 0);
+RGBcolors.blue =color(0, 255, 251);
+RGBcolors.purple =color(157, 0, 255);
+RGBcolors.red =color(255, 0, 0);
+var colors=['blue','green','yellow','purple','red'];
 
 var cristalNumber=2; //Change for number of cristals
 var Cristals = [];//array
@@ -13,7 +19,7 @@ var Yoda = function(){
     this.eyecolor=color(0, 0, 0);
     this.HeadEarsFeetcolor=color(2,179,2);
     this.tuniccolor=color(148, 105, 49);
-    this.isDarth=false;
+    this.isDarth=false;// DARTH YODA!!!!!!!
 };
 Yoda.prototype.colorDarth=function(){
     this.eyecolor=color(255, 234, 0);
@@ -24,7 +30,8 @@ Yoda.prototype.drawEyebrows=function(){//eyebrow method
     fill(0, 0, 0);
     strokeWeight(2);
     line(this.x+5,this.y+3,this.x+20,this.y+11);
-    line(this.x+43,this.y+3,this.x+28,this.y+11);    
+    line(this.x+43,this.y+3,this.x+28,this.y+11); 
+    strokeWeight(1);
 };
 //how to draw yoda
 Yoda.prototype.draw  =function(){
