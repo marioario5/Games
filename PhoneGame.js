@@ -74,7 +74,11 @@ var yoda = new Yoda();//make a new yoda
 var Cristal=function(){
     this.x=random(30,370);
     this.y=30;
-    this.color=colors[round(random(0,colors.length-1))];
+    this.colorName= colors[round(random(0,4))];
+    this.color=RGBcolors[this.colorName];
+    //RGBcolors[no se]
+    //var pp = "red";
+    //saber[pp]
 };
 
 //draw the cristal
