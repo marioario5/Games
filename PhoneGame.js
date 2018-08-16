@@ -10,12 +10,43 @@ RGBcolors.purple =color(157, 0, 255);
 RGBcolors.red =color(255, 0, 0);
 var colors=['blue','green','yellow','purple','red'];
 
-var cristalNumber=2; //Change for number of cristals
+var cristalNumber=1; //Change for number of cristals
 var Cristals = [];//array
+
+// SABER START
+
+var Lightsaber= function(x,lightsabercolor,lightsaberglow){
+    this.x=x;
+    this.y=23;
+    this.lightsabercolor=lightsabercolor;
+    this.lightsaberglow=lightsaberglow;
+    this.height=6;
+};
+
+Lightsaber.prototype.draw= function() {
+    noStroke();
+    fill(0, 0, 0);
+    rect(this.x,this.y,5,14);//handle
+    fill(this.lightsabercolor);
+    rect(this.x,this.y+0,5,this.height-23); //saber
+};
+Lightsaber.prototype.grow=function(){
+    this.height-=5;    
+};
+Lightsaber.prototype.glow=function(){
+    fill(this.lightsaberglow);
+    rect(this.x-2,this.y-22,10,this.height+23);//glow    
+};
+var saber = [];
+var ppp = "blue";
+var pp = "red"; 
+
+// SABER END
+
 //to make the yoda class
 var Yoda = function(){
-    this.x=200;
-    this.y=303;
+    this.x=300;
+    this.y=466;
     this.eyecolor=color(0, 0, 0);
     this.HeadEarsFeetcolor=color(2,179,2);
     this.tuniccolor=color(148, 105, 49);
@@ -38,7 +69,7 @@ Yoda.prototype.draw  =function(){
     //head
     fill(this.HeadEarsFeetcolor);
     rect(this.x,this.y,50,35);
-    fill(this.eyecolor);
+    fill(this.eyecolor);//eyes
     ellipse(this.x+13,this.y+13,8,8);
     ellipse(this.x+36,this.y+13,8,8);
     line(this.x+10,this.y+25,this.x+39,this.y+25);
@@ -58,7 +89,7 @@ Yoda.prototype.draw  =function(){
     //eyebrows
     strokeWeight(1);
     fill(17, 84, 0);//ground
-    rect(0,378,400,98);
+    rect(0,542,4600,131);
 };
 //move right
 Yoda.prototype.moveRight=function(){
@@ -72,13 +103,10 @@ var yoda = new Yoda();//make a new yoda
 
 //cristal class
 var Cristal=function(){
-    this.x=random(30,370);
+    this.x=random(30,570);
     this.y=30;
     this.colorName= colors[round(random(0,4))];
     this.color=RGBcolors[this.colorName];
-    //RGBcolors[no se]
-    //var pp = "red";
-    //saber[pp]
 };
 
 //draw the cristal
@@ -94,9 +122,16 @@ Cristal.prototype.move= function(){
 };
 
 Cristal.prototype.isColliding=function(number){
-    if(this.x>yoda.x &&this.x<yoda.x+50 &&this.y===yoda.y){
+    
+    //println("x: "+round(this.x));
+    //println("yoda x "+yoda.x);
+    //println("yoda x fin "+ (yoda.x + 50));
+    //println("y:" +this.y);
+    //println("yoda y: "+yoda.y);
+    if(this.x > yoda.x && this.x < yoda.x+50 && this.y> yoda.y && this.y < yoda.y+35 ){
         Cristals.splice(number,1);
         playSound(getSound("retro/whistle2"));
+        //println("hello");
     }    
 };
 
