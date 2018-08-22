@@ -2,33 +2,38 @@
 Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. Coming soon: if you collect the red cristals, I have(not will have) a darth function that will make yoda DARTH YODA!
 */
 //start
+
+//RGB vars
 var RGBcolors=[];
-RGBcolors.yellow =color(251, 255, 0);
+RGBcolors.yellow =color(251, 255, 0);//RGB of colors
 RGBcolors.green =color(17, 255, 0);
 RGBcolors.blue =color(0, 255, 251);
 RGBcolors.purple =color(157, 0, 255);
 RGBcolors.red =color(255, 0, 0);
-var colors=['blue','green','yellow','purple','red'];
 
-var cristalNumber=1; //Change for number of cristals
+//configuration vars
+var cristalNumber=5; //Change for number of cristals
+var saberX=30;//x of saber
+var colors=['green','purple','red','blue','yellow'];//string form
+
+//fixed var
 var Cristals = [];//array
+var saber=[];//saber aray
 
 // SABER START
-
-var Lightsaber= function(x,lightsabercolor,lightsaberglow){
+var Lightsaber= function(x,lightsabercolor){
     this.x=x;
-    this.y=23;
-    this.lightsabercolor=lightsabercolor;
-    this.lightsaberglow=lightsaberglow;
+    this.y=48;
+    this.lightsabercolor=RGBcolors[lightsabercolor];
+    //this.lightsaberglow=lightsaberglow;
     this.height=6;
 };
 
 Lightsaber.prototype.draw= function() {
-    noStroke();
     fill(0, 0, 0);
     rect(this.x,this.y,5,14);//handle
     fill(this.lightsabercolor);
-    rect(this.x,this.y+0,5,this.height-23); //saber
+    rect(this.x,this.y,5,this.height-23); //saber
 };
 Lightsaber.prototype.grow=function(){
     this.height-=5;    
@@ -37,9 +42,6 @@ Lightsaber.prototype.glow=function(){
     fill(this.lightsaberglow);
     rect(this.x-2,this.y-22,10,this.height+23);//glow    
 };
-var saber = [];
-var ppp = "blue";
-var pp = "red"; 
 
 // SABER END
 
@@ -105,7 +107,7 @@ var yoda = new Yoda();//make a new yoda
 var Cristal=function(){
     this.x=random(30,570);
     this.y=30;
-    this.colorName= colors[round(random(0,4))];
+    this.colorName=colors[round(random(0,4))];
     this.color=RGBcolors[this.colorName];
 };
 
@@ -122,16 +124,9 @@ Cristal.prototype.move= function(){
 };
 
 Cristal.prototype.isColliding=function(number){
-    
-    //println("x: "+round(this.x));
-    //println("yoda x "+yoda.x);
-    //println("yoda x fin "+ (yoda.x + 50));
-    //println("y:" +this.y);
-    //println("yoda y: "+yoda.y);
     if(this.x > yoda.x && this.x < yoda.x+50 && this.y> yoda.y && this.y < yoda.y+35 ){
         Cristals.splice(number,1);
         playSound(getSound("retro/whistle2"));
-        //println("hello");
     }    
 };
 
@@ -142,8 +137,21 @@ for (var num = 0; num < cristalNumber; num += 1) {
     Cristals.push(cristal);
 }
 
+// SABER START
+
+
+for (var num=0;num<colors.length;num+=1) {
+    saber[colors[num]]=new Lightsaber(saberX,colors[num]);
+    saberX+=134;
+}
+// SABER END
+
 var draw = function() {
     background(57, 184, 204);
+    //lightsabers
+    for(var num=0;num<colors.length;num+=1){
+        saber[colors[num]].draw();    
+    }
     //cristals
     for(var y=0;y<Cristals.length;y+=1){
         Cristals[y].draw(); 
