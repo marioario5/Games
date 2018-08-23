@@ -14,6 +14,7 @@ RGBcolors.red =color(255, 0, 0);
 //configuration vars
 var cristalNumber=5; //Change for number of cristals
 var saberX=30;//x of saber
+var saberY=48;//y of saber
 var colors=['green','purple','red','blue','yellow'];//string form
 
 //fixed var
@@ -23,10 +24,10 @@ var saber=[];//saber aray
 // SABER START
 var Lightsaber= function(x,lightsabercolor){
     this.x=x;
-    this.y=48;
+    this.y=saberY;
     this.lightsabercolor=RGBcolors[lightsabercolor];
     //this.lightsaberglow=lightsaberglow;
-    this.height=6;
+    this.height=24;
 };
 
 Lightsaber.prototype.draw= function() {
@@ -127,6 +128,7 @@ Cristal.prototype.isColliding=function(number){
     if(this.x > yoda.x && this.x < yoda.x+50 && this.y> yoda.y && this.y < yoda.y+35 ){
         Cristals.splice(number,1);
         playSound(getSound("retro/whistle2"));
+        saber[this.colorName].grow();
     }    
 };
 
