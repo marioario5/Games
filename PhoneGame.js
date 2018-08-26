@@ -34,16 +34,18 @@ Lightsaber.prototype.draw= function() {
     fill(0, 0, 0);
     rect(this.x,this.y,5,14);//handle
     fill(this.lightsabercolor);
-    rect(this.x,this.y,5,this.height-23); //saber
+    rect(this.x,this.y,5,this.height-24); //saber
 };
 Lightsaber.prototype.grow=function(){
     this.height-=5;    
 };
-Lightsaber.prototype.glow=function(){
-    fill(this.lightsaberglow);
-    rect(this.x-2,this.y-22,10,this.height+23);//glow    
-};
 
+Lightsaber.prototype.Glow=function(){
+    if(this.height===10){
+        fill(this.lightsaberglow);
+        rect(this.x-2,this.y-22,10,this.height+23);//glow
+    }
+};
 // SABER END
 
 //to make the yoda class
@@ -129,7 +131,16 @@ Cristal.prototype.isColliding=function(number){
         Cristals.splice(number,1);
         playSound(getSound("retro/whistle2"));
         saber[this.colorName].grow();
+        var cristal = new Cristal();
+        Cristals.push(cristal);
     }    
+};
+Cristal.prototype.IshitGround=function(number){
+    if(this.y>542&&this.y<547){
+        Cristals.splice(number,1);
+        var cristal=new Cristal();
+        Cristals.push(cristal);
+    }
 };
 
 //Note to self: for (start; how long; change)
@@ -159,13 +170,16 @@ var draw = function() {
         Cristals[y].draw(); 
         Cristals[y].move();
         Cristals[y].isColliding(y);
+        Cristals[y].IshitGround(y);
+    }
+    for(var num=0;num<colors.length;num+=1){
+        
     }
     yoda.draw();
     if(yoda.isDarth){
         yoda.drawEyebrows(); 
         yoda.colorDarth();
-    }
-    fill(255, 0, 0);
+    }     fill(255, 0, 0);
     //make him move
     if (keyIsPressed && keyCode === RIGHT) {
         yoda.moveRight();
@@ -174,3 +188,6 @@ var draw = function() {
         yoda.moveLeft();
     }
 };
+ playSound(getSound("retro/whistle2"));
+ 
+
