@@ -27,37 +27,6 @@ var colors=['green','purple','red','blue','yellow'];//string form
 var Cristals = [];//array
 var saber=[];//saber aray
 
-// SABER START
-var Lightsaber= function(x,lightsabercolor){
-    this.x=x;
-    this.y=saberY;
-    this.lightsabercolor=RGBcolors[lightsabercolor];
-    this.lightsaberglow=RGBGlowcolors[lightsabercolor];
-    this.height=24;
-    this.shouldGlow=false;
-};
-Lightsaber.prototype.glow=function(){
-    fill(this.lightsaberglow);
-    rect(this.x-2.6,this.y+2,10,this.height-31);//glow    
-};
-Lightsaber.prototype.draw= function() {
-    if(this.shouldGlow){
-        this.glow();    
-    }
-    fill(0, 0, 0);
-    rect(this.x,this.y,5,14);//handle
-    fill(this.lightsabercolor);
-    rect(this.x,this.y,5,this.height-24); //saber
-};
-Lightsaber.prototype.grow=function(){
-    this.height-=5;
-    if(this.height===-16){
-        this.glow(); 
-        this.shouldGlow=true;
-    }
-};
-// SABER END
-//to make the yoda class
 var Yoda = function(){
     this.x=300;
     this.y=466;
@@ -65,6 +34,7 @@ var Yoda = function(){
     this.HeadEarsFeetcolor=color(2,179,2);
     this.tuniccolor=color(148, 105, 49);
     this.isDarth=false;// DARTH YODA!!!!!!!
+    this.canJump=false;
 };
 Yoda.prototype.colorDarth=function(){
     this.eyecolor=color(255, 234, 0);
@@ -80,6 +50,7 @@ Yoda.prototype.drawEyebrows=function(){//eyebrow method
 };
 //how to draw yoda
 Yoda.prototype.draw  =function(){
+    stroke(0,0,0);
     //head
     fill(this.HeadEarsFeetcolor);
     rect(this.x,this.y,50,35);
@@ -112,7 +83,51 @@ Yoda.prototype.moveRight=function(){
 Yoda.prototype.moveLeft=function(){
     this.x-=3;
 };
+Yoda.prototype.jump=function(){
+   this.y-=3;
+};
+Yoda.prototype.fall=function(){
+   this.y+=3;
+   if(this.y>466){
+        this.y=466;    
+   }
+};
 var yoda = new Yoda();//make a new yoda
+
+// SABER START
+var Lightsaber= function(x,lightsabercolor){
+    this.x=x;
+    this.y=saberY;
+    this.lightsabercolor=RGBcolors[lightsabercolor];
+    this.lightsaberglow=RGBGlowcolors[lightsabercolor];
+    this.height=24;
+    this.shouldGlow=false;
+};
+Lightsaber.prototype.glow=function(){
+    fill(this.lightsaberglow);
+    rect(this.x-2.6,this.y+2,10,this.height-31);//glow    
+};
+Lightsaber.prototype.draw= function() {
+    noStroke();
+    if(this.shouldGlow){
+        this.glow();    
+    }
+    fill(0, 0, 0);
+    rect(this.x,this.y,5,14);//handle
+    fill(this.lightsabercolor);
+    rect(this.x,this.y,5,this.height-24); //saber
+};
+Lightsaber.prototype.grow=function(){
+    this.height-=5;
+    if(this.height===-16){
+        this.glow(); 
+        this.shouldGlow=true;
+        yoda.canJump=true;
+    }
+};
+// SABER END
+//to make the yoda class
+
 
 
 //cristal class
@@ -126,6 +141,7 @@ var Cristal=function(){
 
 //draw the cristal
 Cristal.prototype.draw=function(){
+    stroke(0,0,0);
     fill(this.color);
     rect(this.x,this.y,8,19);
     triangle(this.x,this.y,this.x+8,this.y,this.x+3,this.y-18);
@@ -191,11 +207,18 @@ var draw = function() {
     }
     fill(255, 0, 0);
     //make him move
-    if (keyIsPressed && keyCode === RIGHT) {
+    if (keyIsPressed && keyCode === RIGHT) {//Entering if area
         yoda.moveRight();
     }
     if (keyIsPressed && keyCode === LEFT) {
         yoda.moveLeft();
     }
-};
+    if(yoda.canJump){
+        if(keyIsPressed && keyCode === UP){
+            yoda.jump();
+        }else{
+            yoda.fall();
+        }
+    }
+};  
 
