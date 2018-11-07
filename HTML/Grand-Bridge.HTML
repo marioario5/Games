@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Danyang–Kunshan Grand Bridge</title>
+        <style>
+            html{
+                height:100%;
+            }
+            body{
+                background:rgb(81, 237, 227);
+                height:100%;
+            }
+            .lines{
+                margin-left:-5px;
+                background:black;
+                width:124px;
+                height:5px; 
+            }
+            .Challenges-faced-line{
+                margin-top:-318px;
+            }
+            .How-built-line{
+                margin-top:89px;
+            }
+            .How-it-workes-line{
+                margin-top:87px;
+            }
+            .texts{
+                text-align:center;
+                margin-right:475px;
+                font-size:25px;
+                color:red;
+            }
+             .Challenges-faced-text{
+                margin-top:-80px;
+            }
+            .How-it-was-built-text{
+                margin-top:-91px;    
+            }
+            .How-it-workes-text{
+                margin-top:-76px;
+            }
+            .How-it-is-today-and-why-built-text{
+                margin-top:10px;
+            }
+            #event-seperator{
+                margin-left:114px;
+                background:black;
+                width:5px;
+                height:100%;
+            }
+            #Challenges-faced{
+                height:2%;
+            }
+            #Text{
+                position:absolute;
+                top:60px;
+                left:150px;
+            }
+            /**DON"T TOUCH*/
+            #Main-text{
+                font-size:1.9em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="event-seperator"></div>
+            <div id="Challenges-faced">
+                <div class="Challenges-faced-line lines"></div>
+                <p class="Challenges-faced-text texts">Challenges <br> faced</p>
+            </div>
+            <div id="How-it-was-built">
+                <div class="How-built-line lines"></div>  
+                <p class="How-it-was-built-text texts">How it <br> was built</p>
+            </div>
+            <div id="How-it-workes">
+                <div class="How-it-workes-line lines"></div>
+                <p class="How-it-workes-text texts">How it<br>works</p>
+            </div>
+            <div id="How-it-is-today-and-why-built">
+                <p class="How-it-is-today-and-why-built-text texts">Today and it's impact</p>
+            </div>
+            <div id="Text"><span id="Main-text">Dayang-Kushan Grand Bridge</span><br>By: GeordiFace<br><br>The Dayang-Kushan Grand Bridge is the longest bridge in the world, being 102 miles long. It is located in China, and is made up of connected bridges. One of them, the Jiaozhou Bay Bridge, crosses a bay conected to the ocean. It cost <strong><em>8.5 BILLION</em></strong> dollars to make it.</div>
+            <script>
+                //Elements
+                var challengesFacedEl=document.getElementById("Challenges-faced")
+                var howItWasBuiltEl=document.getElementById("How-it-was-built")
+                var howItWorksEl=document.getElementById("How-it-workes")
+                var todayAndImpactEl=document.getElementById("How-it-is-today-and-why-built")
+                var textEl=document.getElementById("Text")
+                
+                //Callback Functions 
+                var onChallengesFacedClick=function(){
+                    textEl.innerHTML="<img src='https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwjf05n5ibzeAhXBY98KHb6pCnwQjRx6BAgBEAU&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDanyang%25E2%2580%2593Kunshan_Grand_Bridge&psig=AOvVaw3vDhT4XnwY5IdzQqVZVhZ0&ust=1541466918667203' alt=Photo of map with Danyang-Kunshang Grand Bridge'><br><br> One of the greatest challenges was the distence, being 102 miles long! That is about 164 killometers! It is a Viaduct, a type of bridge where the bridge is just smaller conected bridges. There are beam, arch, and suspention type bridges. Other challenges where that the bridge crossed a lot of landmarks, and even went next to a river, creating sinkholes. To pass over low obstacles, it is about 1,228 ft. up."
+                };
+                
+                //Event Listeners
+                challengesFacedEl.addEventListener("click",onChallengesFacedClick)
+            </script>
+    </body>
+</html>
+
