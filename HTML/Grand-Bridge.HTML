@@ -1,103 +1,113 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Danyang–Kunshan Grand Bridge</title>
-        <style>
-            html{
-                height:100%;
-            }
-            body{
-                background:rgb(81, 237, 227);
-                height:100%;
-            }
-            .lines{
-                margin-left:-5px;
-                background:black;
-                width:124px;
-                height:5px; 
-            }
-            .Challenges-faced-line{
-                margin-top:-318px;
-            }
-            .How-built-line{
-                margin-top:89px;
-            }
-            .How-it-workes-line{
-                margin-top:87px;
-            }
-            .texts{
-                text-align:center;
-                margin-right:475px;
-                font-size:25px;
-                color:red;
-            }
-             .Challenges-faced-text{
-                margin-top:-80px;
-            }
-            .How-it-was-built-text{
-                margin-top:-91px;    
-            }
-            .How-it-workes-text{
-                margin-top:-76px;
-            }
-            .How-it-is-today-and-why-built-text{
-                margin-top:10px;
-            }
-            #event-seperator{
-                margin-left:114px;
-                background:black;
-                width:5px;
-                height:100%;
-            }
-            #Challenges-faced{
-                height:2%;
-            }
-            #Text{
-                position:absolute;
-                top:60px;
-                left:150px;
-            }
-            /**DON"T TOUCH*/
-            #Main-text{
-                font-size:1.9em;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="event-seperator"></div>
-            <div id="Challenges-faced">
-                <div class="Challenges-faced-line lines"></div>
-                <p class="Challenges-faced-text texts">Challenges <br> faced</p>
-            </div>
-            <div id="How-it-was-built">
-                <div class="How-built-line lines"></div>  
-                <p class="How-it-was-built-text texts">How it <br> was built</p>
-            </div>
-            <div id="How-it-workes">
-                <div class="How-it-workes-line lines"></div>
-                <p class="How-it-workes-text texts">How it<br>works</p>
-            </div>
-            <div id="How-it-is-today-and-why-built">
-                <p class="How-it-is-today-and-why-built-text texts">Today and it's impact</p>
-            </div>
-            <div id="Text"><span id="Main-text">Dayang-Kushan Grand Bridge</span><br>By: GeordiFace<br><br>The Dayang-Kushan Grand Bridge is the longest bridge in the world, being 102 miles long. It is located in China, and is made up of connected bridges. One of them, the Jiaozhou Bay Bridge, crosses a bay conected to the ocean. It cost <strong><em>8.5 BILLION</em></strong> dollars to make it.</div>
-            <script>
-                //Elements
-                var challengesFacedEl=document.getElementById("Challenges-faced")
-                var howItWasBuiltEl=document.getElementById("How-it-was-built")
-                var howItWorksEl=document.getElementById("How-it-workes")
-                var todayAndImpactEl=document.getElementById("How-it-is-today-and-why-built")
-                var textEl=document.getElementById("Text")
-                
-                //Callback Functions 
-                var onChallengesFacedClick=function(){
-                    textEl.innerHTML="<img src='https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwjf05n5ibzeAhXBY98KHb6pCnwQjRx6BAgBEAU&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDanyang%25E2%2580%2593Kunshan_Grand_Bridge&psig=AOvVaw3vDhT4XnwY5IdzQqVZVhZ0&ust=1541466918667203' alt=Photo of map with Danyang-Kunshang Grand Bridge'><br><br> One of the greatest challenges was the distence, being 102 miles long! That is about 164 killometers! It is a Viaduct, a type of bridge where the bridge is just smaller conected bridges. There are beam, arch, and suspention type bridges. Other challenges where that the bridge crossed a lot of landmarks, and even went next to a river, creating sinkholes. To pass over low obstacles, it is about 1,228 ft. up."
-                };
-                
-                //Event Listeners
-                challengesFacedEl.addEventListener("click",onChallengesFacedClick)
-            </script>
-    </body>
-</html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+  margin:7% 7% 7% 7%;
+  height:135px;
+}
+#Text{
+  text-align:center;
+  margin-left:80%;
+  margin-top:80px;
+  width:150%;
+}
+#Main-text{
+  font-size:1.5em;
+}
+#Home-button{
+   float:left;
+}
+</style>
+</head>
+<body>
+
+  <div class="column">
+    <div class="card" id="challenges-faced">
+      <h3>Challenges Faced</h3>
+    </div>
+    <div class="card" id="How-built">
+      <h3>How it got built</h3>
+    </div>
+    <div class="card" id="How-it-works">
+      <h3>How it works</h3>
+    </div>
+    <div class="card" id="How-today-and-why-built">
+      <h3>How it is today and why it was built</h3>
+    </div>
+    
+  </div>
+  <div class="column"><div id="Text"><span id="Main-text">Dayang-Kushan Grand Bridge</span><br>By: GeordiFace<br><br><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlg5LihFIfRuFT8zXPJyHLzSnJpwVzF7pWz03lKXes_QAmpef2Z-I0WM" alt="Photo of the bridge" width="300px"><br><br>The Dayang-Kushan Grand Bridge is the longest bridge in the world, being 102 miles long. It is located in China, and is made up of connected bridges. One of them, the Jiaozhou Bay Bridge, crosses a bay conected to the ocean. It cost <strong><em>8.5 BILLION</em></strong> dollars to make it.</div></div>
+</body>
+<img src="https://cdn2.iconfinder.com/data/icons/web-application-icons-part-i/100/Artboard_43-512.png" height="50px" id="Home-button">
+<script>
+    //vars
+    var button1El=document.getElementById("challenges-faced");
+    var button2El=document.getElementById("How-built");
+    var button3El=document.getElementById("How-it-works");
+    var button4El=document.getElementById("How-today-and-why-built");
+    var textEl=document.getElementById("Text");
+    var homeButtonEl=document.getElementById("Home-button");
+    //callback functions
+    var onChallengesClick=function(){
+          textEl.innerHTML="<br><br> One of the greatest challenges was the distance, being 102 miles long! That is about 164 killometers! It is a Viaduct, a type of bridge where the bridge is just smaller conected bridges. There are beam, arch, and suspention type bridges. Other challenges where that the bridge crossed a lot of landmarks, and even went next to a river, creating sinkholes. To pass over low obstacles, it is about 1,228 ft. up.<br><br><br><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsve8Dtq2OQVbzNzU3VCT2Wpr3IwbX4ATUItIMmV6IDkloj-FoWw' alt=Photo of map with Danyang-Kunshang Grand Bridge on a map showind distance it covers'>"
+    };
+    var onHowBuiltClick=function(){
+          textEl.innerHTML="Constuction lasted 4 years, starting on November 15, 2010. There is a 5.6 mile section on the bridge, that goes over open water! The Dayang Kunshan Grand Bridge is a marvel of engineering. It is built to withstand not just typhoones and magnitude 8 earthquakes, but an impact with a 30,000 ton ship! The bridge splits of in some areas, but always comes back toughether <br><br><br><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYDqX1x19jRbI6gus3wBEsIeKPLPtIMDwbVvuaVRjCYOV9euz0qg' alt='Photo of Dayang bridge over land'>" 
+    };
+    var onHowItWorkesClick=function(){
+          textEl.innerHTML="The Dayang Kunshan Grand Bridge is a marvel of engineering. it is a viaduct, a bridge that conectes other bridges. There are arch, beam, and suspention type bridges on it. Not much else is known.<br><br><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAH4b8kmw6ZdFyrPmRZaUckrDr0ajBqYj_uljiegjwEh4Gi2y9' alt='The bridge over water'>" 
+    };
+    var onHomeButtonClick=function(){
+          textEl.innerHTML="<span id='Main-text'>Dayang-Kushan Grand Bridge</span><br>By: GeordiFace<br><br><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwlg5LihFIfRuFT8zXPJyHLzSnJpwVzF7pWz03lKXes_QAmpef2Z-I0WM' alt='Photo of the bridge'><br><br>The Dayang-Kushan Grand Bridge is the longest bridge in the world, being 102 miles long. It is located in China, and is made up of connected bridges. One of them, the Jiaozhou Bay Bridge, crosses a bay conected to the ocean. It cost <strong><em>8.5 BILLION</em></strong> dollars to make it."
+    };
+    var onHowTodayAndWhyBuiltClick=function(){
+          textEl.innerHTML="As I said earlier, it is the longest bridge in the world, and holdes the title in the book of world records. The bridge is part of the Beijing-Shanghai High-Speed Railway. It majorly impoves traffic. It makes the journey from Shanghai to Nanjing 4.5 to 2 hours. <br><br><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8xfLmDs9KIPLIyFfRWcm4sBVjPnTdlLM1MZcGbx0VHuG3c5oq' alt='Photo of bridge'>"
+    };
+    //event listeners
+    button1El.addEventListener("click",onChallengesClick);
+    button2El.addEventListener("click",onHowBuiltClick);
+    button3El.addEventListener("click",onHowItWorkesClick);
+    button4El.addEventListener("click",onHowTodayAndWhyBuiltClick);
+    homeButtonEl.addEventListener("click",onHomeButtonClick);
+</script>
+</html>
