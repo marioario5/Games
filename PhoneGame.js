@@ -1,5 +1,5 @@
 /*
-Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. Coming soon: if you collect the red cristals, I have(not will have) a darth function that will make yoda DARTH YODA!
+Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. If you collect the red cristals, that will make yoda DARTH YODA!
 */
 //start
 
@@ -22,12 +22,18 @@ RGBGlowcolors.red =color(255, 122, 122);
 var cristalNumber=5; //Change for number of cristals
 var saberX=30;//x of saber
 var saberY=48;//y of saber
-var colors=['green','purple','red','blue','yellow'];//string form
+var colors=['green',"purple","red","blue","yellow"];//string form
 
-//fixed var
-var Cristals = [];//array
+//fixed vars
+var Cristals = [];//cristal array
 var saber=[];//saber aray
+var shouldDrawSaber=false;
+var shouldKillSabers=false;
 
+var drawGround=function(){
+    fill(17, 84, 0);//ground
+    rect(0,542,4600,131);
+};
 var Yoda = function(){//to make the yoda class
     this.x=300;
     this.y=466;
@@ -36,6 +42,7 @@ var Yoda = function(){//to make the yoda class
     this.tuniccolor=color(148, 105, 49);
     this.isDarth=false;// DARTH YODA!!!!!!!
     this.canJump=false;
+    this.saberCollor=null;
 };
 Yoda.prototype.colorDarth=function(){
     this.eyecolor=color(255, 234, 0);
@@ -74,8 +81,6 @@ Yoda.prototype.draw  =function(){
     rect(this.x+31,this.y+70,19,5);
     //eyebrows
     strokeWeight(1);
-    fill(17, 84, 0);//ground
-    rect(0,542,4600,131);
 };
 //move right
 Yoda.prototype.moveRight=function(){
@@ -128,6 +133,40 @@ Lightsaber.prototype.grow=function(){
 };
 // SABER END
 
+var rotatedLightsaber= function(){
+    this.x=398;
+    this.y=42;
+    this.lightsaberglow=RGBGlowcolors[1];
+    this.lightsabercolor=RGBcolors[1];
+    this.height=-24;
+    this.shouldGlow=true;
+};
+
+rotatedLightsaber.prototype.draw= function() {
+    if(this.shouldGlow){
+        this.glow();
+    }
+    pushMatrix();
+        rotate(30);
+        noStroke();
+        fill(0, 0, 0);
+        rect(this.x,this.y,5,14);//handle
+        fill(this.lightsabercolor);
+        rect(this.x,this.y,5,this.height-21); //saber
+    popMatrix();
+
+};
+
+rotatedLightsaber.prototype.glow=function(){
+    pushMatrix();
+        rotate(30);
+        noStroke();
+        fill(this.lightsaberglow);
+        rect(this.x-2.6,this.y+2,10,this.height-31);//glow 
+    popMatrix();
+};
+
+var RotatedLightsaber = new rotatedLightsaber();
 //cristal class
 var Cristal=function(){
     this.x=random(30,570);
@@ -188,25 +227,36 @@ Yoda.prototype.isSaberColliding=function(){
     if(this.y<saberY){
         for(var num=0;num<colors.length;num+=1){
             if(this.x<saber[colors[num]].x && this.x+50>saber[colors[num]].x && saber[colors[num]].shouldGlow){
-                println("Got em!");
+                var saberColor=colors[num];
+                RotatedLightsaber.lightsabercolor=RGBcolors[saberColor];
+                RotatedLightsaber.lightsaberglow=RGBGlowcolors[saberColor];
+                this.saberCollor=saber[colors[num]];
+                if(colors[num]==="red"){
+                    yoda.isDarth=true;
+                }
+                shouldDrawSaber=true;
             }    
         }   
     }
 };
-var draw = function() {
+var draw = function(){
+    //println(saberColor);
     background(57, 184, 204);
-    //lightsabers
-    for(var num=0;num<colors.length;num+=1){
-        saber[colors[num]].draw();    
-    }
-    //cristals
-    for(var y=0;y<Cristals.length;y+=1){
-        Cristals[y].draw(); 
-        Cristals[y].move();
-        Cristals[y].isCristalColliding(y);
-        Cristals[y].isHittingGround(y);
-    }
+    if(!shouldKillSabers){
+        //lightsabers
+        for(var num=0;num<colors.length;num+=1){
+            saber[colors[num]].draw();    
+        }
+        //cristals
+        for(var y=0;y<Cristals.length;y+=1){
+            Cristals[y].draw(); 
+            Cristals[y].move();
+            Cristals[y].isCristalColliding(y);
+            Cristals[y].isHittingGround(y);
+        }
+    }        
     yoda.draw();
+    drawGround();
     if(yoda.isDarth){
         yoda.drawEyebrows(); 
         yoda.colorDarth();
@@ -226,5 +276,10 @@ var draw = function() {
             yoda.fall();
         }
         yoda.isSaberColliding();
+        if(shouldDrawSaber){
+            RotatedLightsaber.draw(); 
+            shouldKillSabers=true;
+        }
     }
 };  
+
