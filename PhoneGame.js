@@ -1,5 +1,7 @@
 /*
 Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. If you collect the red cristals, that will make yoda DARTH YODA!
+
+Please note that this is an Beta version, there will be better improvments on the way.
 */
 //start
 
@@ -43,6 +45,8 @@ var Yoda = function(){//to make the yoda class
     this.isDarth=false;// DARTH YODA!!!!!!!
     this.canJump=false;
     this.saberCollor=null;
+    this.timeInMouthExpression=0;
+    this.mouthExpression="N";
 };
 Yoda.prototype.colorDarth=function(){
     this.eyecolor=color(255, 234, 0);
@@ -56,6 +60,24 @@ Yoda.prototype.drawEyebrows=function(){//eyebrow method
     line(this.x+43,this.y+3,this.x+28,this.y+11); 
     strokeWeight(1);
 };
+Yoda.prototype.drawMouth=function(){
+    if(this.mouthExpression==="N"){
+        this.timeInMouthExpression=second();
+        line(this.x+10,this.y+25,this.x+39,this.y+25);    
+    }else if(this.mouthExpression==="S"){
+        noFill();
+        arc(this.x+24,this.y+27,28,10,0,180); 
+        if((second()-this.timeInMouthExpression)>0){
+            this.mouthExpression="N";    
+        }
+    }else if(this.mouthExpression==="M"){
+        noFill();
+        arc(this.x+24,this.y+27,28,10,180,360);  
+        if((second()-this.timeInMouthExpression)>0){
+            this.mouthExpression="N";    
+        }
+    }
+};
 //how to draw yoda
 Yoda.prototype.draw  =function(){
     stroke(0,0,0);
@@ -65,7 +87,7 @@ Yoda.prototype.draw  =function(){
     fill(this.eyecolor);//eyes
     ellipse(this.x+13,this.y+13,8,8);
     ellipse(this.x+36,this.y+13,8,8);
-    line(this.x+10,this.y+25,this.x+39,this.y+25);
+    this.drawMouth();
     //ears
     fill(this.HeadEarsFeetcolor);
     triangle(this.x+-32,this.y+-12,this.x,this.y,this.x+-1,this.y+19);
@@ -198,6 +220,11 @@ Cristal.prototype.isCristalColliding=function(number){
         }
         var cristal = new Cristal();
         Cristals.push(cristal);
+        if(this.colorName==="red"){
+            yoda.mouthExpression="M";
+        }else{
+            yoda.mouthExpression="S";    
+        }
     }    
 };
 Cristal.prototype.isHittingGround=function(number){
@@ -235,13 +262,13 @@ Yoda.prototype.isSaberColliding=function(){
                     yoda.isDarth=true;
                 }
                 shouldDrawSaber=true;
+                
             }    
         }   
     }
 };
 var draw = function(){
-    //println(saberColor);
-    background(57, 184, 204);
+    background(40, 205, 224);
     if(!shouldKillSabers){
         //lightsabers
         for(var num=0;num<colors.length;num+=1){
@@ -261,7 +288,6 @@ var draw = function(){
         yoda.drawEyebrows(); 
         yoda.colorDarth();
     }
-    fill(255, 0, 0);
     //make him move
     if (keyIsPressed && keyCode === RIGHT) {//Entering if area
         yoda.moveRight();
