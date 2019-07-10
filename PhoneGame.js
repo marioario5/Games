@@ -296,5 +296,10 @@ var draw = function(){
             shouldKillSabers=true;
         }
     }
+    var lightsaberXMath=yoda.x*cos(rotatedLightsaber.rotateAngle)+yoda.y*sin(rotatedLightsaber.rotateAngle);
+    var lightsaberYMath=-yoda.x*sin(rotatedLightsaber.rotateAngle)+yoda.y*cos(rotatedLightsaber.rotateAngle);
+    
+    rotatedLightsaber.x=lightsaberXMath+77;
+    rotatedLightsaber.y=lightsaberYMath+11;
 };  
 
