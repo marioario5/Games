@@ -1,7 +1,7 @@
 /*
 Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. Good luck!
 
-Please note that this is an Beta version, there will be better improvments on the way.
+Please note that this is an Gamma version, there will be better improvments on the way.
 */
 //start
 
@@ -21,7 +21,7 @@ RGBGlowcolors.purple =color(207, 135, 255);
 RGBGlowcolors.red =color(255, 122, 122);
 
 //configuration vars
-var cristalNumber=100; //Change for number of cristals
+var cristalNumber=5; //Change for number of cristals
 var saberX=30;//x of saber
 var saberY=48;//y of saber
 var colors=['green',"purple","red","blue","yellow"];//string form
@@ -276,11 +276,22 @@ var draw = function(){
         yoda.colorDarth();
     }
     //make him move
-    if (keyIsPressed && keyCode === RIGHT) {//Entering if area
-        yoda.moveRight();
-    }
-    if (keyIsPressed && keyCode === LEFT) {
-        yoda.moveLeft();
+    if(shouldKillSabers){
+        if(yoda.x>300){
+            yoda.moveLeft();    
+        }else if(yoda.x<300){
+            yoda.moveRight();    
+        }
+        yoda.canJump=false;
+        yoda.fall();
+        rotatedLightsaber.draw(); 
+    }else{
+        if (keyIsPressed && keyCode === RIGHT) {//Entering if area
+            yoda.moveRight();
+        }
+        if (keyIsPressed && keyCode === LEFT) {
+            yoda.moveLeft();
+        }
     }
     if(yoda.canJump){
         if(keyIsPressed && keyCode === UP){
@@ -292,8 +303,8 @@ var draw = function(){
             yoda.isSaberColliding();
         }
         if(shouldDrawSaber){
-            rotatedLightsaber.draw(); 
             shouldKillSabers=true;
+            rotatedLightsaber.draw(); 
         }
     }
     var lightsaberXMath=yoda.x*cos(rotatedLightsaber.rotateAngle)+yoda.y*sin(rotatedLightsaber.rotateAngle);
