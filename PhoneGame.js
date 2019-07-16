@@ -44,6 +44,7 @@ var Yoda = function(){//to make the yoda class
     this.tuniccolor=color(148, 105, 49);
     this.isDarth=false;// DARTH YODA!!!!!!!
     this.canJump=false;
+    this.isTouchingGround=true;
     this.saberCollor=null;
     this.timeInMouthExpression=0;
     this.mouthExpression="N";
@@ -79,7 +80,7 @@ Yoda.prototype.drawMouth=function(){
     }
 };
 //how to draw yoda
-Yoda.prototype.draw  =function(){
+Yoda.prototype.draw=function(){
     stroke(0,0,0);
     //head
     fill(this.HeadEarsFeetcolor);
@@ -113,10 +114,12 @@ Yoda.prototype.moveLeft=function(){
 };
 Yoda.prototype.jump=function(){
    this.y-=3;
+   this.isTouchingGround=false;
 };
 Yoda.prototype.fall=function(){
    this.y+=3;
    if(this.y>466){
+        this.isTouchingGround=true;
         this.y=466;    
    }
 };
@@ -223,8 +226,26 @@ Cristal.prototype.isHittingGround=function(number){
         Cristals.push(cristal);
     }
 };
+var TalkingPerson=function(){
+    this.text="";
+    this.textWidth=0;
+    this.textHight=19;
+    this.isTalking=false;
+    this.timeInBubble=0;
+};
 
-//Make them
+TalkingPerson.prototype.draw= function(objectX,objectY){
+    noStroke();
+    textSize(this.textHight);
+    this.textWidth=textWidth(this.text);
+    fill(255, 255, 255);
+    ellipse(objectX,objectY,this.textWidth+88,this.textHight*2);
+    fill(0, 0, 0);
+    text(this.text,objectX-this.textWidth/2,objectY+this.textHight/4);
+};
+var talkBallon=new TalkingPerson();
+
+//Make cristals
 for (var num = 0; num < cristalNumber; num += 1) {
     var cristal = new Cristal();
     Cristals.push(cristal);
@@ -271,9 +292,36 @@ var draw = function(){
     }        
     yoda.draw();
     drawGround();
+    if(talkBallon.isTalking&& yoda.isDarth===false){
+        talkBallon.draw(300,111);
+        if(talkBallon.timeInBubble===0){
+            talkBallon.text="Hello";
+            talkBallon.timeInBubble=second();
+        }
+        if((second()-talkBallon.timeInBubble)>2){
+            talkBallon.text="You have done well";
+        }
+        if((second()-talkBallon.timeInBubble)>4){
+            talkBallon.text="But now you must pass the greatest test of all";    
+        }
+        if((second()-talkBallon.timeInBubble)>10){
+            talkBallon.text="Stay tuned for part two of the Yoda Series!";
+        }
+    }
     if(yoda.isDarth){
-        yoda.drawEyebrows(); 
         yoda.colorDarth();
+        yoda.drawEyebrows();
+        if(talkBallon.isTalking){
+            talkBallon.draw(300,111);
+        if(talkBallon.timeInBubble===0){
+            talkBallon.text="So you gave into temptation didn't you?";
+            talkBallon.timeInBubble=second();
+        }
+        if((second()-talkBallon.timeInBubble)>3){
+            talkBallon.textHight=30;
+            talkBallon.text="HAHAHAHAHAHAHA";
+        }
+        }
     }
     //make him move
     if(shouldKillSabers){
@@ -281,6 +329,9 @@ var draw = function(){
             yoda.moveLeft();    
         }else if(yoda.x<300){
             yoda.moveRight();    
+        }
+        if(yoda.isTouchingGround){
+            talkBallon.isTalking=true;
         }
         yoda.canJump=false;
         yoda.fall();
@@ -313,4 +364,3 @@ var draw = function(){
     rotatedLightsaber.x=lightsaberXMath+77;
     rotatedLightsaber.y=lightsaberYMath+11;
 };  
-
