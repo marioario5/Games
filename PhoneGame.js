@@ -1,8 +1,12 @@
 /*
 Hi! I will give you instructions for how to play this game. First, you click restart and then IMPORTANT!!!!! click the screen where you play to give focus to the screen. then, try to collect the cristals. Change the number of cristals that fall with the variable cristalNumber. Good luck!
-
-Please note that this is an Gamma version, there will be better improvments on the way.
 */
+/**
+ * DISCAMER:
+ * I DO NOT OWN ANY OF THE STAR WARS ICONS, SUCH AS THE LIGHTSABER 
+ * OR YODA. ALL RIGHTS GO TO THE STAR WARS COMPANY
+ * **/
+
 //start
 
 //RGB vars
@@ -29,8 +33,9 @@ var colors=['green',"purple","red","blue","yellow"];//string form
 //fixed vars
 var Cristals = [];//cristal array
 var saber=[];//saber aray
-var shouldDrawSaber=false;
+var shouldDrawRotatedSaber=false;
 var shouldKillSabers=false;
+var shouldSwish=false;
 
 var drawGround=function(){
     fill(17, 84, 0);//ground
@@ -158,26 +163,49 @@ Lightsaber.prototype.grow=function(){
 };
 // SABER END
 var RotatedLightsaber= function(){
-    this.x=yoda.x;
-    this.y=yoda.y;
-    this.lightsaberglow=RGBGlowcolors[1];
-    this.lightsabercolor=RGBcolors[1];
-    this.height=-24;
+    this.x=279;
+    this.y=466;
+    this.lightsaberglow=RGBGlowcolors.purple;
+    this.lightsabercolor=RGBcolors.purple;
+    this.height=-45;
+    this.shouldGlow=true;
     this.rotateAngle=30;
+    this.timeInAngle=millis();
+    this.isDeactivated=false;
 };
 
 RotatedLightsaber.prototype.draw= function() {
-    pushMatrix();
-        noStroke();
-        rotate(this.rotateAngle);
-        fill(this.lightsaberglow);
-        rect(this.x-2.6,this.y+2,10,this.height-31);//glow 
-        fill(0, 0, 0);
-        rect(this.x,this.y,5,14);//handle
-        fill(this.lightsabercolor);
-        rect(this.x,this.y,5,this.height-21); //saber\
-    popMatrix();
+        pushMatrix();
+            noStroke();
+            rotate(this.rotateAngle);
+            if(this.shouldGlow){
+                fill(this.lightsaberglow);
+                rect(this.x-2.6,this.y+2,10,this.height-11);//glow
+            }
+            fill(0, 0, 0);
+            rect(this.x,this.y,5,14);//handle
+            fill(this.lightsabercolor);
+            rect(this.x,this.y,5,this.height); //saber
+        popMatrix();
+};
 
+RotatedLightsaber.prototype.rotate=function(){
+    this.draw();
+        
+    this.x=(yoda.x-32)*cos(this.rotateAngle)+(yoda.y+100)*sin(this.rotateAngle);
+    
+    this.y=-(yoda.x-32)*sin(this.rotateAngle)+(yoda.y+100)*cos(this.rotateAngle);
+    
+    this.rotateAngle-=10;
+};
+
+RotatedLightsaber.prototype.deactivate=function(){
+    this.shouldGlow=false;
+    this.isDeactivated=true;
+    if(this.height<0){
+        this.height+=2;
+        this.draw();
+    }
 };
 
 var rotatedLightsaber = new RotatedLightsaber();
@@ -269,7 +297,7 @@ Yoda.prototype.isSaberColliding=function(){
                 if(colors[num]==="red"){
                     yoda.isDarth=true;
                 }
-                shouldDrawSaber=true;
+                shouldDrawRotatedSaber=true;
                 
             }    
         }   
@@ -304,8 +332,15 @@ var draw = function(){
         if((second()-talkBallon.timeInBubble)>4){
             talkBallon.text="But now you must pass the greatest test of all";    
         }
-        if((second()-talkBallon.timeInBubble)>10){
+        if((second()-talkBallon.timeInBubble)>6){
             talkBallon.text="Stay tuned for part two of the Yoda Series!";
+        }
+        if((second()-talkBallon.timeInBubble)>8){
+            background(40, 205, 224);
+            talkBallon.isTalking=false;
+            yoda.draw();
+            drawGround();
+            shouldSwish=true;    
         }
     }
     if(yoda.isDarth){
@@ -313,14 +348,15 @@ var draw = function(){
         yoda.drawEyebrows();
         if(talkBallon.isTalking){
             talkBallon.draw(300,111);
-        if(talkBallon.timeInBubble===0){
-            talkBallon.text="So you gave into temptation didn't you?";
-            talkBallon.timeInBubble=second();
-        }
-        if((second()-talkBallon.timeInBubble)>3){
-            talkBallon.textHight=30;
-            talkBallon.text="HAHAHAHAHAHAHA";
-        }
+            if(talkBallon.timeInBubble===0){
+                talkBallon.text="So you gave into temptation didn't you?";
+                talkBallon.timeInBubble=second();
+            }
+            if((second()-talkBallon.timeInBubble)>3){
+                talkBallon.textHight=30;
+                talkBallon.text="HAHAHAHAHAHAHA";
+                shouldSwish=true;
+            }
         }
     }
     //make him move
@@ -330,7 +366,7 @@ var draw = function(){
         }else if(yoda.x<300){
             yoda.moveRight();    
         }
-        if(yoda.isTouchingGround){
+        if(yoda.isTouchingGround && !shouldSwish){
             talkBallon.isTalking=true;
         }
         yoda.canJump=false;
@@ -353,14 +389,24 @@ var draw = function(){
         if(!shouldKillSabers){
             yoda.isSaberColliding();
         }
-        if(shouldDrawSaber){
+        if(shouldDrawRotatedSaber){
             shouldKillSabers=true;
             rotatedLightsaber.draw(); 
         }
     }
-    var lightsaberXMath=yoda.x*cos(rotatedLightsaber.rotateAngle)+yoda.y*sin(rotatedLightsaber.rotateAngle);
-    var lightsaberYMath=-yoda.x*sin(rotatedLightsaber.rotateAngle)+yoda.y*cos(rotatedLightsaber.rotateAngle);
+    if(shouldSwish){
+        if(rotatedLightsaber.rotateAngle>-360){
+            rotatedLightsaber.rotate();
+        }else{
+            rotatedLightsaber.deactivate();
+        }    
+    }
+    if(shouldDrawRotatedSaber&&!shouldSwish){
+        rotatedLightsaber.height=-45;
+        rotatedLightsaber.shouldGlow=true;
+        rotatedLightsaber.rotateAngle=30;
+        rotatedLightsaber.x=yoda.x*cos(rotatedLightsaber.rotateAngle)+yoda.y*sin(rotatedLightsaber.rotateAngle)+77;
     
-    rotatedLightsaber.x=lightsaberXMath+77;
-    rotatedLightsaber.y=lightsaberYMath+11;
+        rotatedLightsaber.y=-yoda.x*sin(rotatedLightsaber.rotateAngle)+yoda.y*cos(rotatedLightsaber.rotateAngle)+11;
+    }
 };  
