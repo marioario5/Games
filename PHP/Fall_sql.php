@@ -4,7 +4,7 @@ $Plate=$_REQUEST['plate'];
 $Why=$_REQUEST['why'];
 $servername = "127.0.0.1";
 $username = "marioario";
-$password = "!Banana0o";
+$password = "Stop Looking at my Passcode!!!";
 $dbname = "Fall_Form";
 
 // Create connection
