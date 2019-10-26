@@ -1,7 +1,6 @@
  <?php
 $servername = "127.0.0.1";
 $username = "marioario";
-$password = "!Banana0o";
 $dbname = "Fall_Form";
 
 $Plates=array();
