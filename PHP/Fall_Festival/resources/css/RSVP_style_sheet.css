@@ -1,0 +1,16 @@
+body{
+	text-align:center;
+	background-image:url(../images/fall_road.jpeg);
+	background-repeat:no-repeat;
+	background-size:100.1%;
+}
+#header{
+	color:rgb(141,36,36);
+	font-size:292%;
+}
+#main_p{
+	text-align:center;
+}
+#guests{
+	width:3%;
+}

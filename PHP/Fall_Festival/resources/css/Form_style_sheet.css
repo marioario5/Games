@@ -1,0 +1,12 @@
+body{
+	background-image: url(../images/fall.png);
+	font-family:sans-serif;
+	color:#000000225225225;
+}
+#form{
+	text-align:center;
+}
+
+.Important{
+	text-align:center;
+}

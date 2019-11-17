@@ -1,0 +1,9 @@
+body{
+	font-family:sans-serif;
+	background-image:url(../images/leaves.jpg);
+	background-size :100%;
+	text-align:center;
+}
+#header{
+	text-size:122%;
+}

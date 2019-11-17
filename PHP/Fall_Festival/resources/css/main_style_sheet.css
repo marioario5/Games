@@ -1,0 +1,22 @@
+a{
+	color:red;
+}
+a:visited{
+	color:black;
+}
+a:focus{
+	color:red;
+}
+a:hover{
+	color:orange;
+}
+#footer{
+	border:7px ridge blue;
+	text-align:center;
+	background-color:rgb(81, 237, 227);
+	margin-left:400px;
+	margin-right:400px;
+}
+#dont{
+	font-size:40%;
+}

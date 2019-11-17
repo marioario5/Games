@@ -1,0 +1,64 @@
+body{
+	font-family:sans-serif;
+	background-image:url(../images/tree.jpg);
+	background-repeat:no-repeat;
+}
+#Main_Title{
+	font-size:350%;
+	margin-top:38%;
+	margin-left:62%;
+}
+#hooker{
+	text-align:center;
+}
+#campfire{
+	color:rgb(168,46,46);
+}
+#c{
+	color:rgb(129,201,76);
+}
+#contest{
+	color:rgb(194,116,59);
+}
+#quote{
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+}
+#h_div{
+	background-image:url(../images/leaf.png);
+	background-repeat:no-repeat;
+}
+#quote_div{
+	background-color:rgb(255, 89, 0);
+}
+#Land{
+	text-align:center;
+	color:rgb(141,36,36);
+}
+#Land_Div{
+	background-image:url(../images/leaves.jpg);
+	background-repeat:no-repeat;
+	background-size:100%;
+}
+#Land_p{
+	text-align:center;
+	font-size:112%;
+}
+#stupid{
+	margin-left:46.7%;
+}
+.div_p{
+	color:rgb(141,80,36);
+}
+.hooker_p{
+	text-align:center;
+}
+.title{
+	color:rgb(141,36,36);
+}
+.hooker_div{
+	 width: 33.33333333333333333%;
+     text-align: center;
+     float:left;
+}
