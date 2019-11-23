@@ -2,7 +2,7 @@
 
 $servername = "127.0.0.1";
 $username = "marioario";
-$password = "!Banana0o";
+$password = "DUDE YOU GOOD?";
 $dbname = "Fall_Form";
 
 $Plates=array();
