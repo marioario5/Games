@@ -21,13 +21,18 @@ $Email=$_REQUEST["email"];
 $Guests=$_REQUEST["guests"];
 $servername = "127.0.0.1";
 $username = "marioario";
-$password = "DUDE NOT COOL";
+$password = "EAT MY BANANA";
 $dbname = "Fall_Form";
 
-$userInCookie=getUserFromCookieCode();
-$Name= $userInCookie[$cookieCode];
+$cookieValue=getUserFromCookie();
 
-setCookieValue($cookieCode);
+if($cookieValue !="Not Known"){
+    $Name=$cookieValue;;    
+}else{
+    $userInCookie=getUserFromCookieCode();
+    $Name= $userInCookie[$cookieCode];
+    setCookieValue($cookieCode);
+}
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
