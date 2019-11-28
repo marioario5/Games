@@ -1,3 +1,29 @@
+<?php
+
+$servername = "127.0.0.1";
+$username = "marioario";
+$password = "!Banana0o";
+$dbname = "Fall_Form";
+
+$Names=array();
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT Name FROM Fall_RSVP";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($Names, $row["Name"]);
+    }
+}
+$conn->close();
+?> 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,11 +73,19 @@
 		<br><br>
 		<br><br>
 		<br><br>
-		<br>
-		<footer id="footer">
-    		<p>Powered by Mario Studios</p>
-    		<img alt="Mario Studios Logo" src="resources/images/mario.jpg" height="100px"><br>
-    		<p id="dont">Please don't donate today.</p>
-    	</footer>
 	</body>
+	<script type="text/javascript">
+	var Names = <?php echo json_encode($Names, JSON_PRETTY_PRINT) ?>;
+	var nameFromCode = <?php echo json_encode(getUserFromCookieCode(), JSON_PRETTY_PRINT) ?>;
+	
+	// Get all options within <select id='foo'>...</select>
+	var op = document.getElementById("name").getElementsByTagName("option");	
+	for (var i = 0; i < op.length; i++) {		
+		// lowercase comparison for case-insensitivity		
+		var n = Names.includes(nameFromCode[op[i].value]);
+	    if (n) {
+	  		op[i].disabled = true;
+	  	}
+	}
+	</script>
 </html>

@@ -21,7 +21,7 @@ $Why=$_REQUEST['why'];
 $Email=$_REQUEST["email"];
 $servername = "127.0.0.1";
 $username = "marioario";
-$password = "omg how bout NO";
+$password = "!Banana0o";
 $dbname = "Fall_Form";
 
 $cookieValue=getUserFromCookie();
@@ -53,13 +53,6 @@ $conn->close();
 ?>
 		<br>
 		<a href="Form.php">Click here to return to the form.</a>
-		<!--  
-		<footer id="footer">
-    		<p>Powered by Mario Studios</p>
-    		<img alt="Mario Studios Logo" src="resources/images/mario.jpg" height="100px"><br>
-    		<p id="dont">Please don't donate today.</p>
-    	</footer>
-    	-->
     </body>
 </html> 
 <?php

@@ -15,7 +15,6 @@
 		<ol>
 			<li><a href="RSVP.php" target="_blank">RSVP Form</a></li>
 			<li><a href="Form.php" target="_blank">Cooking Survey</a></li>
-			<li><a href="Other.php" target="_blank">Personalized Survey</a></li>
 		</ol>
 		<br><br>
 		<br><br>
@@ -27,10 +26,5 @@
 		<br><br>
 		<br><br>
 		<br><br>
-		<footer id="footer">
-    		<p>Powered by Mario Studios</p>
-    		<img alt="Mario Studios Logo" src="resources/images/mario.jpg" height="100px"><br>
-    		<p id="dont">Please don't donate today.</p>
-    	</footer>
 	</body>
 </html>

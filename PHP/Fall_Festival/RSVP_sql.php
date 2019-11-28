@@ -21,7 +21,7 @@ $Email=$_REQUEST["email"];
 $Guests=$_REQUEST["guests"];
 $servername = "127.0.0.1";
 $username = "marioario";
-$password = "EAT MY BANANA";
+$password = "!Banana0o";
 $dbname = "Fall_Form";
 
 $cookieValue=getUserFromCookie();
@@ -54,11 +54,6 @@ $conn->close();
 ?>
 		<br>
 		<a href="RSVP.php">Click here to return to the form.</a>
-		<footer id="footer">
-    		<p>Powered by Mario Studios</p>
-    		<img alt="Mario Studios Logo" src="resources/images/mario.jpg" height="100px"><br>
-    		<p id="dont">Please don't donate today.</p>
-    	</footer>
     </body>
 </html> 
 <?php
@@ -73,7 +68,7 @@ mail($to, $subject, $message, $headers);
 //Email to form person
 $to2=$Email;
 $subject2="Fall Festival";
-$message2 ="Thanks, ".$Name." for filling out this form. The festival is on Saturday, November 23.";
+$message2 ="Thanks, ".$Name." for filling out this form. The festival is on Saturday, December 14.";
 $headers2="From: pointbreak565@gmail.com";
 
 mail($to2,$subject2,$message2,$headers2);

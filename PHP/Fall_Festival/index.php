@@ -126,12 +126,5 @@
 			<br>
 			<br>
     	</div>
-    	<!--  	
-    	<footer id="footer">
-    		<p>Powered by Mario Studios</p>
-    		<img alt="Mario Studios Logo" src="resources/images/mario.jpg" height="100px"><br>
-    		<p id="dont">Please don't donate today.</p>
-    	</footer>
-    	-->
     </body>
 </html>                                                           

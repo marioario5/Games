@@ -15,7 +15,7 @@ function getUserFromCookieCode(){
     $userInCookie=[
         "0001" => "Mario",
         "0010" => "Javier",
-        "0100" => "Elena",
+        "0100" => "Isabel",
         "1000" => "Perica",
         "1001" => "Elizabeth",
         "0110" => "Elena"
