@@ -1,1 +1,280 @@
+/*
+    NOTE: This is a sequal program, so first play the original Yoda Game. You can find it here: https://www.khanacademy.org/computer-programming/yoda-game/5215278729560064
+    
+    Avoid being crushed by the platforms, and jump your way up to do an epic battle with the emperor. Lose, and meet a bloody and squishy end. Win, and get a palpatine plushie. Either way, your loyalty to the jedi counsil will be complete... 
+    
+Scroll down for part 3.
+*/
 
+//As of now, this game is very simple/buggy, so don't judge. 
+
+//fixed vars
+var Platforms=[];
+var shouldEndScreen=false;
+
+//configuration vars
+var platformNumber=1;
+var rowDensity=134;
+var difficulty=10;
+
+
+background(107, 114, 148);
+
+var Yoda = function(){//to make the yoda class
+    this.x=264;
+    this.y=471;
+    this.isDead=false;
+};
+
+Yoda.prototype.draw=function(){
+    stroke(0,0,0);
+    strokeWeight(1);
+    //head
+    fill(2,179,2);
+    rect(this.x,this.y,50,35);
+    fill(0,0,0);
+    if(this.isDead){//eyes
+        strokeWeight(2);
+        line(this.x+4,this.y+4,this.x+20,this.y+20); 
+        line(this.x+20,this.y+4,this.x+4,this.y+20);
+        line(this.x+46,this.y+4,this.x+31,this.y+20); 
+        line(this.x+31,this.y+4,this.x+45,this.y+20);
+        strokeWeight(1);
+    }else{
+        ellipse(this.x+13,this.y+13,8,8);
+        ellipse(this.x+36,this.y+13,8,8);    
+    }
+    line(this.x+10,this.y+25,this.x+39,this.y+25);//mouth
+    //ears
+    fill(2,179,2);
+    triangle(this.x+-32,this.y+-12,this.x,this.y,this.x+-1,this.y+19);
+    triangle(this.x+86,this.y-12,this.x+50,this.y,this.x+50,this.y+19);
+    //tunic
+    fill(148,105,49);
+    rect(this.x,this.y+35,50,35);
+    triangle(this.x+0,this.y+34,this.x+-21,this.y+71,this.x+0,this.y+70);
+    triangle(this.x+50,this.y+35,this.x+49,this.y+70,this.x+74,this.y+71);
+    //feet
+    fill(2,179,2);
+    rect(this.x,this.y+70,19,5);
+    rect(this.x+31,this.y+70,19,5);
+};
+
+Yoda.prototype.moveRight=function(){
+    this.x+=10;
+};
+Yoda.prototype.moveLeft=function(){
+    this.x-=10;
+};
+
+var yoda=new Yoda();
+
+var Palpatine=function(){
+    this.x=262;
+    this.y=82;
+};
+
+Palpatine.prototype.draw=function(){
+    stroke(0, 0, 0);
+    fill(255, 255, 255);
+    triangle(this.x+18,this.y+3,this.x-3,this.y+44,this.x+40,this.y+44);
+    fill(222,222,29);
+    ellipse(this.x+13,this.y+21,6,6);
+    ellipse(this.x+22,this.y+21,6,6);
+    strokeWeight(2);
+    line(this.x+14,this.y+13,this.x+20,this.y+24);
+    line(this.x+22,this.y+13,this.x+20,this.y+24);
+    noFill();
+    arc(this.x+18,this.y+34,17,12,0,180);
+    fill(0, 0, 0);
+    quad(this.x+35,this.y,this.x+20,this.y+2,this.x+42,this.y+43,this.x+63,this.y+43);
+    quad(this.x+20,this.y+2,this.x-4,this.y+44,this.x-21,this.y+44,this.x+8,this.y-1);
+    rect(this.x-7,this.y+44,54.5,50);
+    rect(this.x-18,this.y+65,79,10);
+};
+
+Palpatine.prototype.drawPlushie=function(){
+    fill(255, 255, 255);
+    noStroke();
+    rect(this.x-22,this.y,39,37);
+    stroke(0, 0, 0);
+    fill(0,0,0);
+    rect(this.x-32,this.y,10,35);
+    rect(this.x+15,this.y,10,35);
+    rect(this.x-32,this.y-10,57,10);
+    fill(222, 222, 29);
+    ellipse(this.x-11,this.y+10,6,6);
+    ellipse(this.x+6,this.y+10,6,6);
+    strokeWeight(2);
+    line(this.x-10,this.y+3,this.x-2,this.y+12);
+    line(this.x+3,this.y+3,this.x-2,this.y+12);
+    noFill();
+    arc(this.x-3,this.y+24,24,16,0,180);
+    strokeWeight(3);
+    line(this.x-30,this.y+37,this.x+23,this.y+37);
+    fill(0, 0, 0);
+    rect(this.x-32,this.y+39,56,30);
+    rect(this.x-45,this.y+46,81,7);
+};
+
+var palpatine= new Palpatine();
+
+var drawSpeechBubble = function(x,y,sx,sy,r,fc,sc,sw){
+    pushMatrix();
+    pushStyle();
+    translate(x,y);
+    scale(sx,sy);
+    rotate(r);
+    fill(255, 255, 255);
+    stroke(sc);
+    strokeWeight(sw);
+    beginShape();
+    curveVertex(-111,8); 
+    curveVertex(-49,-78);
+    curveVertex(129,-80);
+    curveVertex(133,26);
+    curveVertex(-4,42); 
+    curveVertex(-73,52);
+    curveVertex(-136,95); 
+    curveVertex(-111,8);
+    curveVertex(-49,-78); 
+    curveVertex(129,-80);
+    endShape();
+    popStyle();
+    popMatrix();
+};
+
+
+var drawEndScreen=function(){
+    background(148, 13, 13);
+
+    fill(0, 0, 0);
+    textSize(30);
+    textAlign("CENTER","CENTER");
+    text("You have been defeted by the Emperor",35,300);
+    text("You don't get a Palpatine Plushie",52,370);
+
+    palpatine.x=207;
+    palpatine.y=114;
+    palpatine.drawPlushie();
+    
+    drawSpeechBubble(318,91,0.5,0.5,0,0xFF0000FF,0xFF000000,4);
+    fill(0, 0, 0);
+    textSize(19);
+    textWidth(56);
+    text("HAHAHAHA!",274,93);
+
+    yoda.isDead=true;
+    yoda.x=250;
+    yoda.draw();
+};
+
+var Platform=function(){
+    //this.x=floor(random(100,500));
+    this.x=400;
+    this.y=200;
+    this.boolean=false;
+    this.a=(yoda.y-this.y-26)/(yoda.x-this.x-yoda.x/this.x+45);
+    this.b=174-this.a*this.x;
+};
+
+Platform.prototype.draw=function(){
+    noStroke();
+    fill(125, 125, 125);
+    ellipse(this.x,this.y,100,31);
+    fill(0, 0, 0);
+    arc(this.x,this.y,100,31,0,180);
+    fill(255, 255, 255);
+    ellipse(this.x,this.y,5,5);
+    ellipse(this.x-15,this.y,5,5);
+    ellipse(this.x+15,this.y,5,5);
+    ellipse(this.x+30,this.y,5,5);
+    ellipse(this.x-30,this.y,5,5);
+};    
+
+Platform.prototype.fall= function(){
+    this.y=this.a*this.x+this.b;
+    this.x+=difficulty/this.a;
+};
+Platform.prototype.isHittingGround=function(number){
+    /*
+    if(this.y>300&&this.y<300+difficulty){
+        var platform=new Platform();
+        Platforms.push(platform);    
+    }
+    */
+    if(this.y>542&&this.y<542+difficulty){
+        Platforms.splice(number,1);
+        var platform=new Platform();
+        Platforms.push(platform);
+        this.x=floor(random(100,500));
+    }
+};
+Platform.prototype.isPlatformColliding=function(number){
+    var squareRoot=Math.pow(15.5,2)-Math.pow((yoda.y-this.y),2);
+    if(squareRoot>0){
+        this.isColliding=50/15.5*Math.sqrt(squareRoot);
+        this.isColliding1=this.x+this.isColliding;
+        this.isColliding2=floor(this.x-this.isColliding);
+
+        if(this.isColliding1>yoda.x&&this.isColliding1<yoda.x+50){
+            playSound(getSound("rpg/hit-splat"));
+            shouldEndScreen=true;
+            drawEndScreen();
+        }else if(this.isColliding2>yoda.x&&this.isColliding2<yoda.x+50){
+            playSound(getSound("rpg/hit-splat"));
+            shouldEndScreen=true;
+            drawEndScreen();
+        }
+    }
+};    
+
+// make the platforms
+for(var num=0;num<platformNumber;num++){
+    var platform=new Platform();
+    Platforms.push(platform);
+}    
+
+var drawScenery=function(){
+    noStroke();
+    fill(84, 81, 81);//buildings
+    rect(59,112,151,464,5);
+    rect(0,259,78,299,5);
+    rect(206,211,124,340,5);
+    rect(330,245,195,470,5);
+    rect(522,400,117,152,5);
+    fill(0, 0, 0);
+    rect(130,174,350,20);//platform
+    rect(0,546,600,79);//ground
+};
+
+draw= function() {
+    if(!shouldEndScreen){
+        background(107, 114, 148);
+        drawScenery();
+        palpatine.draw();
+        yoda.draw();
+        for(var y=0;y<Platforms.length;y+=1){
+            Platforms[y].draw();
+            Platforms[y].fall();
+            Platforms[y].isHittingGround(y);
+            Platforms[y].isPlatformColliding(y);
+        }
+        for(var y=200;y<248;y+=28){
+            for(var num=0;num<89;num++){
+                var platform=new Platform();
+                platform.x=num*rowDensity;
+                platform.y=y;
+                platform.draw();
+            }
+        }    
+        if(keyIsPressed && keyCode === RIGHT){
+            yoda.moveRight();   
+        }else if(keyIsPressed && keyCode === LEFT){
+            yoda.moveLeft();
+        }
+    }
+};
+/*
+Part 3: COMMING SOMETIME FAR FAR IN THE FUTURE...
+*/
